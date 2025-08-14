@@ -42,9 +42,58 @@
   .disabled .btn.primary{ background:#233148; box-shadow:none }
 
   .foot{ padding:8px 12px calc(10px + env(safe-area-inset-bottom)); font-size:12px; color:#89a0bc; text-align:center; }
+  /* === HERO TITLE === */
+.hero{
+  padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 8px;
+  text-align: center;
+}
+
+.hero-title{
+  margin: 0;
+  font-weight: 1000;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  /* grande ma responsivo */
+  font-size: clamp(34px, 9.5vw, 64px);
+  color: #eef5ff; /* fallback */
+  /* leggero glow per staccare su sfondo scuro */
+  text-shadow: 0 2px 10px rgba(59,130,246,.18), 0 10px 30px rgba(59,130,246,.12);
+}
+
+.hero-title .accent{
+  /* gradiente solo sulla parola WORKOUT */
+  background: linear-gradient(90deg, #22d3ee 0%, #3b82f6 55%, #a855f7 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(59,130,246,.28));
+}
+
+.hero-sub{
+  margin: 8px 0 12px;
+  font-size: clamp(12px, 3.4vw, 16px);
+  letter-spacing: .08em;
+  color: #9db0c8;
+  text-transform: uppercase;
+}
+
+/* spazio sotto il titolo prima delle card */
+.hero + .cards,
+.hero + .grid,
+.hero + .apps,
+.hero + * {
+  margin-top: 6px;
+}
+
 </style>
 </head>
 <body>
+
+  <header class="hero">
+  <h1 class="hero-title">MC <span class="accent">WORKOUT</span></h1>
+  <p class="hero-sub">IL REGNO DI MATTIA</p>
+</header>
+
+  
   <div class="app">
     <header>
       <div class="title">Allenamenti</div>
