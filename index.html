@@ -24,17 +24,27 @@
   .grid{ display:grid; gap:12px; grid-template-columns: repeat(2, minmax(0,1fr)); }
   @media (max-width:420px){ .grid{ grid-template-columns:1fr } }
 
-  .card{ position:relative; border-radius:var(--radius); overflow:hidden; border:1px solid #1b2433; background:#0e1521; min-height:140px; display:flex; flex-direction:column;
-         box-shadow:0 10px 28px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.03); }
+  .card{
+    position:relative; border-radius:var(--radius); overflow:hidden; border:1px solid #1b2433; background:#0e1521; min-height:140px; display:flex; flex-direction:column;
+    box-shadow:0 10px 28px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.03);
+    /* variabili di tema con fallback */
+    --accent-soft: rgba(59,130,246,.18);
+    --icon-bg: linear-gradient(135deg,#3b82f6,#10b981);
+  }
   .top{ padding:14px; display:flex; align-items:center; gap:10px; }
-  .icon{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-weight:900; font-size:18px; color:#fff;
-         background:linear-gradient(135deg,#3b82f6,#10b981); box-shadow:0 8px 18px rgba(59,130,246,.35); }
+  .icon{
+    width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-weight:900; font-size:18px; color:#fff;
+    background: var(--icon-bg); box-shadow:0 8px 18px var(--accent-soft);
+  }
   .name{ font-size:16px; font-weight:800; color:#e9f3ff; line-height:1.1 }
   .desc{ font-size:12px; color:#a8b9d0; margin-top:2px }
   .grow{ flex:1 }
   .cta{ display:flex; gap:10px; padding:12px; background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00)); }
   .btn{ flex:1; text-align:center; padding:12px 14px; border:none; border-radius:12px; font-weight:900; font-size:16px; color:#fff; background:#23334a; cursor:pointer; touch-action:manipulation; text-decoration:none }
-  .btn.primary{ background:var(--accent); box-shadow:0 8px 22px rgba(59,130,246,.35) }
+  .btn.primary{ background:var(--accent); box-shadow:0 8px 22px var(--accent-soft) }
+
+  /* Hover colorato sul bordo */
+  .card:hover{ border-color: var(--accent); box-shadow: 0 10px 28px rgba(0,0,0,.25), 0 8px 26px var(--accent-soft), inset 0 1px 0 rgba(255,255,255,.03); }
 
   .badge{ position:absolute; top:10px; right:10px; font-size:11px; color:#fff; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.15); border-radius:999px; padding:5px 8px; backdrop-filter: blur(6px) saturate(1.1); }
   .disabled{ opacity:.65; filter:saturate(.8); }
@@ -42,58 +52,54 @@
   .disabled .btn.primary{ background:#233148; box-shadow:none }
 
   .foot{ padding:8px 12px calc(10px + env(safe-area-inset-bottom)); font-size:12px; color:#89a0bc; text-align:center; }
+
   /* === HERO TITLE === */
-.hero{
-  padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 8px;
-  text-align: center;
-}
+  .hero{
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 8px;
+    text-align: center;
+  }
+  .hero-title{
+    margin: 0;
+    font-weight: 1000;
+    letter-spacing: .02em;
+    line-height: 1.05;
+    font-size: clamp(34px, 9.5vw, 64px);
+    color: #eef5ff;
+    text-shadow: 0 2px 10px rgba(59,130,246,.18), 0 10px 30px rgba(59,130,246,.12);
+  }
+  .hero-title .accent{
+    background: linear-gradient(90deg, #22d3ee 0%, #3b82f6 55%, #a855f7 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(59,130,246,.28));
+  }
+  .hero-sub{
+    margin: 8px 0 12px;
+    font-size: clamp(12px, 3.4vw, 16px);
+    letter-spacing: .08em;
+    color: #9db0c8;
+    text-transform: uppercase;
+  }
+  .hero + .cards,
+  .hero + .grid,
+  .hero + .apps,
+  .hero + * { margin-top: 6px; }
 
-.hero-title{
-  margin: 0;
-  font-weight: 1000;
-  letter-spacing: .02em;
-  line-height: 1.05;
-  /* grande ma responsivo */
-  font-size: clamp(34px, 9.5vw, 64px);
-  color: #eef5ff; /* fallback */
-  /* leggero glow per staccare su sfondo scuro */
-  text-shadow: 0 2px 10px rgba(59,130,246,.18), 0 10px 30px rgba(59,130,246,.12);
-}
-
-.hero-title .accent{
-  /* gradiente solo sulla parola WORKOUT */
-  background: linear-gradient(90deg, #22d3ee 0%, #3b82f6 55%, #a855f7 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(59,130,246,.28));
-}
-
-.hero-sub{
-  margin: 8px 0 12px;
-  font-size: clamp(12px, 3.4vw, 16px);
-  letter-spacing: .08em;
-  color: #9db0c8;
-  text-transform: uppercase;
-}
-
-/* spazio sotto il titolo prima delle card */
-.hero + .cards,
-.hero + .grid,
-.hero + .apps,
-.hero + * {
-  margin-top: 6px;
-}
-
+  /* ====== TEMI PER CARD (cambia colore per ogni “app”) ====== */
+  .card.theme-violet { --accent:#8b5cf6; --accent-soft:rgba(139,92,246,.18); --icon-bg: linear-gradient(135deg,#8b5cf6,#a78bfa); }
+  .card.theme-emerald{ --accent:#10b981; --accent-soft:rgba(16,185,129,.18); --icon-bg: linear-gradient(135deg,#10b981,#34d399); }
+  .card.theme-amber  { --accent:#f59e0b; --accent-soft:rgba(245,158,11,.20); --icon-bg: linear-gradient(135deg,#f59e0b,#fbbf24); }
+  .card.theme-pink   { --accent:#ec4899; --accent-soft:rgba(236,72,153,.20); --icon-bg: linear-gradient(135deg,#ec4899,#f472b6); }
+  .card.theme-sky    { --accent:#0ea5e9; --accent-soft:rgba(14,165,233,.20); --icon-bg: linear-gradient(135deg,#0ea5e9,#38bdf8); }
 </style>
 </head>
 <body>
 
   <header class="hero">
-  <h1 class="hero-title">MC <span class="accent">WORKOUT</span></h1>
-  <p class="hero-sub">IL REGNO DI MATTIA</p>
-</header>
+    <h1 class="hero-title">MC <span class="accent">WORKOUT</span></h1>
+    <p class="hero-sub">IL REGNO DI MATTIA</p>
+  </header>
 
-  
   <div class="app">
     <header>
       <div class="title">Allenamenti</div>
@@ -104,7 +110,7 @@
       <section class="grid">
 
         <!-- LINK AL PROGETTO Cone Color -->
-        <article class="card">
+        <article class="card theme-violet">
           <div class="top">
             <div class="icon">C</div>
             <div>
@@ -119,7 +125,7 @@
         </article>
 
         <!-- LINK AL PROGETTO HOME FIT COACH -->
-        <article class="card">
+        <article class="card theme-emerald">
           <div class="top">
             <div class="icon">H</div>
             <div>
@@ -133,8 +139,8 @@
           </div>
         </article>
 
- <!-- LINK AL PROGETTO TDEE -->
-        <article class="card">
+        <!-- LINK AL PROGETTO TDEE -->
+        <article class="card theme-amber">
           <div class="top">
             <div class="icon">T</div>
             <div>
@@ -147,7 +153,7 @@
             <a class="btn primary" href="https://cavimat99.github.io/TDEE/" target="_self" rel="noopener">Apri</a>
           </div>
         </article>
-        
+
       </section>
     </main>
   </div>
